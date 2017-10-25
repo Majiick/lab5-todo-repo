@@ -32,11 +32,6 @@ def list(): # Name of the method
     cur = mysql.connection.cursor() #create a connection to the SQL instance
     cur.execute('''SELECT * FROM TASKTABLE''') # execute an SQL statment
     rv = cur.fetchall() #Retreive all rows returend by the SQL statment
-    sc.api_call(
-        "chat.postMessage",
-        channel="#python",
-        text="User displaying list. :tada:"
-    )
     
     return render_template('index.html', name=str(rv))     #Return the data in a string format
 
@@ -48,11 +43,6 @@ def add(name=None, email=None):
     data=(taskname)
     cur.execute(insert_stmt, data)
     mysql.connection.commit()
-    sc.api_call(
-        "chat.postMessage",
-        channel="#python",
-        text="User adding task. :tada:"
-    )
     
     return render_template('index.html', name = "New task added to the database")
   
