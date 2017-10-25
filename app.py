@@ -30,7 +30,7 @@ def statichtml(name=None):
 @app.route("/list")
 def list(): # Name of the method
     cur = mysql.connection.cursor() #create a connection to the SQL instance
-    cur.execute('''SELECT * FROM monitortask''') # execute an SQL statment
+    cur.execute('''SELECT * FROM TASKTABLE''') # execute an SQL statment
     rv = cur.fetchall() #Retreive all rows returend by the SQL statment
     sc.api_call(
         "chat.postMessage",
@@ -44,7 +44,7 @@ def list(): # Name of the method
 @app.route("/add/<taskname>")
 def add(name=None, email=None):
     cur= mysql.connection.cursor()
-    insert_stmt = ("INSERT INTO monitortask (tName) VALUES (%s)")
+    insert_stmt = ("INSERT INTO TASKTABLE (tName) VALUES (%s)")
     data=(taskname)
     cur.execute(insert_stmt, data)
     mysql.connection.commit()
@@ -60,7 +60,7 @@ def add(name=None, email=None):
 @app.route("/delete/<tno>")
 def delete(tno=None):
     cur=mysql.connection.cursor()
-    delstatmt = "DELETE FROM monitortask WHERE tno = ' {} ' ".format(tno)
+    delstatmt = "DELETE FROM TASKTABLE WHERE tno = ' {} ' ".format(tno)
     print(delstatmt)
     cur.execute(delstatmt)
     mysql.connection.commit()
@@ -71,7 +71,7 @@ def delete(tno=None):
 @app.route("/update/<taskname>/<tno>")
 def update(taskname=None, tno=None):
     cur=mysql.connection.cursor()
-    update_stmt = ("UPDATE monitortask SET tName = %s WHERE tNo = %s")
+    update_stmt = ("UPDATE TASKTABLE SET tName = %s WHERE tNo = %s")
     data=(taskname,tno)
     cur.execute(update_stmt, data)
     mysql.connection.commit()
